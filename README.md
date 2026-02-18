@@ -55,7 +55,7 @@ The system supports two roles:
 
 ### 1️⃣ Clone the Repository
 
-git clone [<your-repo-url>](https://github.com/ShanmugaPriyaElango/survey_service.git)
+git clone https://github.com/ShanmugaPriyaElango/survey_service.git
 cd surveyapp
 
 
