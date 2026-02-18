@@ -3,7 +3,7 @@ from django.db.models import Q
 
 from .models import Surveys
 from surveyapp.permissions import IsAdmin
-from .serializers import SurveyListSerializer, SurveyCreateSerializer, SurveyReadSerializer
+from .serializers import SurveyListSerializer, SurveyCreateSerializer, SurveyReadSerializer, SurveyUpdateSerializer
 
 
 class SurveyListCreateView(generics.ListCreateAPIView):
@@ -32,13 +32,17 @@ class SurveyListCreateView(generics.ListCreateAPIView):
 
 class SurveyReadUpdateView(generics.RetrieveUpdateAPIView):
     permission_classes = []
-    serializer_class = SurveyReadSerializer
     queryset = Surveys.objects.all()
 
     def get_permissions(self):
         if self.request.method == "PUT":
             return [IsAdmin()]
         return []
+
+    def get_serializer_class(self):
+        if self.request.method == "PUT":
+            return SurveyUpdateSerializer
+        return SurveyReadSerializer
 
     def get_queryset(self):
         user = self.request.user
