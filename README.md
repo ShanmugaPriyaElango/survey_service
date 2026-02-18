@@ -56,7 +56,8 @@ The system supports two roles:
 ### 1️⃣ Clone the Repository
 
 git clone https://github.com/ShanmugaPriyaElango/survey_service.git
-cd surveyapp
+
+cd survey_service
 
 
 ---
@@ -69,7 +70,7 @@ python -m venv venv
 Activate:
 
 Windows:
-venv\Scripts\activate
+.\venv\Scripts\activate
 
 
 Linux/Mac:
