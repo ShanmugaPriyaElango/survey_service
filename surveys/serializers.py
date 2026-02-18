@@ -71,7 +71,7 @@ class QuestionUpdateSerializer(serializers.ModelSerializer):
 
 class SurveyUpdateSerializer(serializers.ModelSerializer):
     questions = QuestionUpdateSerializer(many=True, write_only=True)
-    
+
     class Meta:
         model = Surveys
         fields = '__all__'
@@ -91,7 +91,8 @@ class SurveyUpdateSerializer(serializers.ModelSerializer):
             instance.shared_with.set(shared_with)
 
             # Handle questions
-            existing_questions = {q.question_id: q for q in instance.questions.all()}
+            existing_questions = {
+                q.question_id: q for q in instance.questions.all()}
             new_questions = []
 
             for question_data in question_list:
@@ -105,14 +106,16 @@ class SurveyUpdateSerializer(serializers.ModelSerializer):
                     question_obj.save()
                 else:
                     # New question to create
-                    new_questions.append(Questions(survey=instance, **question_data))
+                    new_questions.append(
+                        Questions(survey=instance, **question_data))
+
+            # Delete questions removed in the update
+            updated_ids = [q.get("question_id")
+                           for q in question_list if q.get("question_id")]
+            to_delete = instance.questions.exclude(question_id__in=updated_ids)
+            to_delete.delete()
 
             if new_questions:
                 Questions.objects.bulk_create(new_questions)
-
-            # Delete questions removed in the update
-            updated_ids = [q.get("question_id") for q in question_list if q.get("question_id")]
-            to_delete = instance.questions.exclude(question_id__in=updated_ids)
-            to_delete.delete()
 
         return instance
