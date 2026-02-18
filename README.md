@@ -135,10 +135,10 @@ Authentication is handled using a custom header:
 X-USER-ID: <user_id>
 
 
-Example using Postman:
+Example:
 
 Headers:
-X-USER-ID: 1
+X-USER-ID: <user_id>
 
 
 ---
@@ -159,7 +159,6 @@ X-USER-ID: 1
 | GET | /api/surveys/ | List surveys |
 | POST | /api/surveys/ | Create survey (admin only) |
 | GET | /api/surveys/<survey_id>/ | Retrieve survey |
-| PUT | /api/surveys/<survey_id>/ | Update survey |
 
 ---
 
@@ -178,7 +177,7 @@ X-USER-ID: 1
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | /api/responses/?users_id=<user_id> | Get all responses by logged-in user/ created_by user_id in query_params |
+| GET | /api/responses/?users_id=<user_id> | Get all responses by logged-in user/ by user_id in query_params |
 
 ---
 
